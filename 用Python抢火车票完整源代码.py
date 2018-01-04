@@ -73,7 +73,7 @@ class huoche(object):
 					self.driver.find_option_by_text("06:00--12:00").first.click()
 					self.driver.find_by_text(u"GC-高铁/城际").click()
 					self.driver.find_by_text(u"D-动车").click()
-					sleep(0.5)
+					sleep(0.05)
 					self.driver.find_by_text(u"查询").click()
 					count += 1
 					print(u"循环点击查询... 第 %s 次" % count)
@@ -89,7 +89,7 @@ class huoche(object):
 					self.driver.find_option_by_text("06:00--12:00").first.click()
 					self.driver.find_by_text(u"GC-高铁/城际").click()
 					self.driver.find_by_text(u"D-动车").click()
-					sleep(0.5)
+					sleep(0.05)
 					self.driver.find_by_text(u"查询").click()
 					count += 1
 					print(u"循环点击查询... 第 %s 次" % count)
@@ -97,7 +97,7 @@ class huoche(object):
 					try:
 						for i in self.driver.find_by_text(u"预订"):
 							i.click()
-							sleep(1)
+							sleep(0.5)
 					except Exception as e:
 						print(e)
 						print(u"还没开始预订 %s" %count)
@@ -111,7 +111,7 @@ class huoche(object):
 				self.driver.find_by_text(user).last.click()
 
 			print(u"提交订单...")
-			sleep(1)
+			sleep(0.5)
 			# self.driver.find_by_text(self.pz).click()
 			# self.driver.find_by_id('').select(self.pz)
 			# # sleep(1)
@@ -122,7 +122,7 @@ class huoche(object):
 			# self.driver.find_by_id('1D').last.click()
 			# self.driver.find_by_id('1F').last.click()
 
-			sleep(1.5)
+			sleep(1)
 			print(u"确认选座...")
 			self.driver.find_by_id('qr_submit_id').click()
 
