@@ -51,7 +51,7 @@ class huoche(object):
         # 登录名
         self.username = cp.get("login", "username")
         # 密码
-        self.password = cp.get("login", "password")
+        self.passwd = cp.get("login", "password")
         # 始发站
         self.starts = cp.get("cookieInfo", "starts")
         # 终点站
@@ -59,7 +59,7 @@ class huoche(object):
         # 乘车时间
         self.dtime = cp.get("cookieInfo", "dtime")
         # 车次
-        self.dtime = cp.get("cookieInfo", "dtime")
+        self.order = cp.get("orderItem", "order")
         # 乘客名
         self.users = cp.get("userInfo", "users")
         # 车次类型
