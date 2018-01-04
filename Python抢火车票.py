@@ -12,32 +12,6 @@ class huoche(object):
     """docstring for huoche"""
     driver_name=''
     executable_path=''
-    #用户名，密码
-    #username = u"xxx@qq.com"
-    #passwd = u"xxx"
-    # cookies值得自己去找, 下面两个分别是武汉, 襄阳
-    #starts = u"%u6B66%u6C49%2CWHN"
-    #ends = u"%u8944%u9633%2CXFN"
-    # 时间格式2018-01-19
-    #dtime = u"2018-01-11"
-    # 车次，选择第几趟，0则从上之下依次点击
-    #order = 0
-    ###乘客名
-    #users = [u"xxx"]
-    ##席位
-    #xb = u"二等座"
-    #pz=u"成人票"
-	
-    ## 车次类型
-    #train_types = ["D", "G"]
-    ## 发车时间：时间格式 12:00--18:00
-    #start_time = u"12:00--18:00"
-
-    """网址"""
-    #ticket_url = "https://kyfw.12306.cn/otn/leftTicket/init"
-    #login_url = "https://kyfw.12306.cn/otn/login/init"
-    #initmy_url = "https://kyfw.12306.cn/otn/index/initMy12306"
-    #buy="https://kyfw.12306.cn/otn/confirmPassenger/initDc"
 	
     def readConfig(self, config_file='config.ini'):
         path = r"/Users/san/githubDownload/12306Python/" + config_file
@@ -63,7 +37,7 @@ class huoche(object):
         # 乘客名
         self.users = cp.get("userInfo", "users")
         # 车次类型
-        self.train_types = cp.get("trainInfo", "train_types")
+        self.train_types = cp.get("trainInfo", "train_types").split(',')
         # 发车时间
         self.start_time = cp.get("trainInfo", "start_time")
         # 网址
