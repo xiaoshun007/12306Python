@@ -26,6 +26,9 @@ class huoche(object):
 	##席位
 	xb = u"二等座"
 	pz=u"成人票"
+	
+	##车次类型
+	train_types=["D"]
 
 	"""网址"""
 	ticket_url = "https://kyfw.12306.cn/otn/leftTicket/init"
@@ -51,6 +54,20 @@ class huoche(object):
 			else:
 				break
 
+	def preStart(self):
+		for type in self.train_types
+			print(u'--------->选择车次类型', self.train_type)
+			# 车次类型选择
+			train_type_dict = {'T': u'T-特快',  			# 特快
+							   'G': u'GC-高铁/城际',  	# 高铁
+                               'D': u'D-动车',  			# 动车
+                               'Z': u'Z-直达'}  			# 直达
+			if train_type == 'T' or train_type == 'G' or train_type == 'D' or train_type == 'Z':
+				self.driver.find_option_by_text("06:00--12:00").first.click()
+				self.driver.find_by_text((train_type_dict[type]).click()
+			else:
+				print(u"车次类型异常或未选择!(train_type=%s)" % train_type)
+		
 	def start(self):
 		self.driver=Browser(driver_name=self.driver_name,executable_path=self.executable_path)
 		self.driver.driver.set_window_size(1400, 1000)
@@ -70,9 +87,10 @@ class huoche(object):
 			count=0
 			if self.order!=0:
 				while self.driver.url==self.ticket_url:
-					self.driver.find_option_by_text("06:00--12:00").first.click()
-					self.driver.find_by_text(u"GC-高铁/城际").click()
-					self.driver.find_by_text(u"D-动车").click()
+					#self.driver.find_option_by_text("06:00--12:00").first.click()
+					#self.driver.find_by_text(u"GC-高铁/城际").click()
+					#self.driver.find_by_text(u"D-动车").click()
+					self.preStart()
 					sleep(0.05)
 					self.driver.find_by_text(u"查询").click()
 					count += 1
@@ -86,9 +104,10 @@ class huoche(object):
 						continue
 			else:
 				while self.driver.url == self.ticket_url:
-					self.driver.find_option_by_text("06:00--12:00").first.click()
-					self.driver.find_by_text(u"GC-高铁/城际").click()
-					self.driver.find_by_text(u"D-动车").click()
+					#self.driver.find_option_by_text("06:00--12:00").first.click()
+					#self.driver.find_by_text(u"GC-高铁/城际").click()
+					#self.driver.find_by_text(u"D-动车").click()
+					self.preStart()
 					sleep(0.05)
 					self.driver.find_by_text(u"查询").click()
 					count += 1
