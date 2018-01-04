@@ -13,6 +13,7 @@ class huoche(object):
     driver_name=''
     executable_path=''
 	
+    """读取配置文件"""
     def readConfig(self, config_file='config.ini'):
         path = r"/Users/san/githubDownload/12306Python/" + config_file
         cp = ConfigParser()
@@ -39,7 +40,7 @@ class huoche(object):
         # 车次类型
         self.train_types = cp.get("trainInfo", "train_types").split(",")
         # 发车时间
-        self.start_time = cp.get("trainInfo", "start_time")
+        self.start_time = cp.get("trainInfo", "start_time").replace("\"", "")
         # 网址
         self.ticket_url = cp.get("urlInfo", "ticket_url")
         self.login_url = cp.get("urlInfo", "login_url")
@@ -56,16 +57,18 @@ class huoche(object):
     def login(self):
         self.driver.visit(self.login_url)
         self.driver.fill("loginUserDTO.user_name", self.username)
-        # sleep(1)
+        
         self.driver.fill("userDTO.password", self.passwd)
         print(u"等待验证码，自行输入...")
+        # 验证码需要自行输入
         while True:
             if self.driver.url != self.initmy_url:
                 sleep(1)
             else:
                 break
-                
-    def preStart(self):
+    
+    """更多查询条件"""            
+    def searchMore(self):
         # 选择车次类型
         for type in self.train_types:
             # 车次类型选择
@@ -82,35 +85,45 @@ class huoche(object):
         # 选择发车时间
         print(u'--------->选择的发车时间', self.start_time)
         self.driver.find_option_by_text(self.start_time).first.click()
-		
+	
+    """填充查询条件"""
+    def preStart(self):
+        # 加载查询信息
+        ## 出发地
+        self.driver.cookies.add({"_jc_save_fromStation": self.starts})
+        ## 目的地
+        self.driver.cookies.add({"_jc_save_toStation": self.ends})
+        ## 出发日
+        self.driver.cookies.add({"_jc_save_fromDate": self.dtime})
+        ## 勾选车次类型，发车时间
+        self.searchMore();
+
     def start(self):
         self.driver=Browser(driver_name=self.driver_name,executable_path=self.executable_path)
         self.driver.driver.set_window_size(1400, 1000)
+        # 登录，自动填充用户名、密码，自旋等待输入验证码，输入完验证码，点登录后，访问 tick_url（余票查询页面）
         self.login()
-        # sleep(1)
+        # 登录成功，访问余票查询页面
         self.driver.visit(self.ticket_url)
         try:
             print(u"购票页面开始...")
-            # sleep(1)
-            # 加载查询信息
-            self.driver.cookies.add({"_jc_save_fromStation": self.starts})
-            self.driver.cookies.add({"_jc_save_toStation": self.ends})
-            self.driver.cookies.add({"_jc_save_fromDate": self.dtime})
+            
+            # 填充查询条件
+            self.preStart()
 
+            # 带着查询条件，重新加载页面
             self.driver.reload()
 
             count=0
+            # 预定车次算法：根据order的配置确定开始点击预订的车次，0-从上至下点击
             if self.order!=0:
                 while self.driver.url==self.ticket_url:
-                    #self.driver.find_option_by_text("06:00--12:00").first.click()
-                    #self.driver.find_by_text(u"GC-高铁/城际").click()
-                    #self.driver.find_by_text(u"D-动车").click()
-                    self.preStart()
-                    sleep(0.05)
+                    #self.preStart()
+                    #sleep(0.05)
                     self.driver.find_by_text(u"查询").click()
                     count += 1
                     print(u"循环点击查询... 第 %s 次" % count)
-                    # sleep(1)
+                    
                     try:
                         self.driver.find_by_text(u"预订")[self.order - 1].click()
                     except Exception as e:
@@ -119,18 +132,16 @@ class huoche(object):
                         continue
             else:
                 while self.driver.url == self.ticket_url:
-                    #self.driver.find_option_by_text("06:00--12:00").first.click()
-                    #self.driver.find_by_text(u"GC-高铁/城际").click()
-                    #self.driver.find_by_text(u"D-动车").click()
-                    self.preStart()
-                    sleep(0.05)
+                    #self.preStart()
+                    #sleep(0.05)
                     self.driver.find_by_text(u"查询").click()
                     count += 1
                     print(u"循环点击查询... 第 %s 次" % count)
-                    # sleep(0.8)
+                    
                     try:
                         for i in self.driver.find_by_text(u"预订"):
                             i.click()
+                            # 等待0.5秒，提交等待的时间
                             sleep(0.5)
                     except Exception as e:
                         print(e)
@@ -139,7 +150,7 @@ class huoche(object):
             print(u"开始预订...")
             # sleep(3)
             # self.driver.reload()
-            sleep(1)
+            sleep(0.8)
             print(u'开始选择用户...')
             for user in self.users:
                 self.driver.find_by_text(user).last.click()
