@@ -1,6 +1,10 @@
 # 12306Python
 py12306 是一个 Python 3.x 版的12306.cn订票程序。
 
+## Usage
+直接运行:
+python 12306Python.py
+
 Config
 
 最简单的方法是修改 config.ini， 然后填写自己的乘车信息， 乘客信息可以只填姓名和证件号码， 有几个乘客就填几项[passengerX]， 这些配置都可以在运行期间进行修改。
