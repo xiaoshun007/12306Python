@@ -3,6 +3,7 @@
 @author: ssf
 """
 from splinter.browser import Browser
+from configparser import ConfigParser
 from time import sleep
 import traceback
 import time, sys
@@ -12,37 +13,70 @@ class huoche(object):
     driver_name=''
     executable_path=''
     #用户名，密码
-    username = u"xxx@qq.com"
-    passwd = u"xxx"
+    #username = u"xxx@qq.com"
+    #passwd = u"xxx"
     # cookies值得自己去找, 下面两个分别是武汉, 襄阳
-    starts = u"%u6B66%u6C49%2CWHN"
-    ends = u"%u8944%u9633%2CXFN"
+    #starts = u"%u6B66%u6C49%2CWHN"
+    #ends = u"%u8944%u9633%2CXFN"
     # 时间格式2018-01-19
-    dtime = u"2018-01-11"
+    #dtime = u"2018-01-11"
     # 车次，选择第几趟，0则从上之下依次点击
-    order = 0
+    #order = 0
     ###乘客名
-    users = [u"xxx"]
+    #users = [u"xxx"]
     ##席位
-    xb = u"二等座"
-    pz=u"成人票"
+    #xb = u"二等座"
+    #pz=u"成人票"
 	
     ## 车次类型
-    train_types = ["D", "G"]
+    #train_types = ["D", "G"]
     ## 发车时间：时间格式 12:00--18:00
-    start_time = u"12:00--18:00"
+    #start_time = u"12:00--18:00"
 
     """网址"""
-    ticket_url = "https://kyfw.12306.cn/otn/leftTicket/init"
-    login_url = "https://kyfw.12306.cn/otn/login/init"
-    initmy_url = "https://kyfw.12306.cn/otn/index/initMy12306"
-    buy="https://kyfw.12306.cn/otn/confirmPassenger/initDc"
-    login_url='https://kyfw.12306.cn/otn/login/init'
+    #ticket_url = "https://kyfw.12306.cn/otn/leftTicket/init"
+    #login_url = "https://kyfw.12306.cn/otn/login/init"
+    #initmy_url = "https://kyfw.12306.cn/otn/index/initMy12306"
+    #buy="https://kyfw.12306.cn/otn/confirmPassenger/initDc"
 	
+    def readConfig(self, config_file='config.ini'):
+        cp = ConfigParser.ConfigParser()
+        try:
+            cp.readfp(open(config_file, 'r'))
+        except IOError as e:
+            print(u'打开配置文件"%s"失败啦, 请先创建或者拷贝一份配置文件config.ini' % (config_file))
+            raw_input('Press any key to continue')
+            sys.exit()
+        # 登录名
+        self.username = cp.get('login', 'username')
+        # 密码
+        self.password = cp.get('login', 'password')
+        # 始发站
+        self.starts = cp.get('cookieInfo', 'starts')
+        # 终点站
+        self.ends = cp.get('cookieInfo', 'ends')
+        # 乘车时间
+        self.dtime = cp.get('cookieInfo', 'dtime')
+        # 车次
+        self.dtime = cp.get('cookieInfo', 'dtime')
+        # 乘客名
+        self.users = cp.get('userInfo', 'users')
+        # 车次类型
+        self.train_types = cp.get('trainInfo', 'train_types')
+        # 发车时间
+        self.start_time = cp.get('trainInfo', 'start_time')
+        # 网址
+        self.ticket_url = cp.get('urlInfo', 'ticket_url')
+        self.login_url = cp.get('urlInfo', 'login_url')
+        self.initmy_url = cp.get('urlInfo', 'initmy_url')
+        self.buy = cp.get('urlInfo', 'buy')       
+
     def __init__(self):
         self.driver_name='chrome'
         #self.executable_path='/usr/local/bin/chromedriver'
         self.executable_path=r'C:\Users\sanshunfeng\Downloads\chromedriver.exe'
+        # 读取配置文件，获得初始化参数
+        self.readConfig();
 
     def login(self):
         self.driver.visit(self.login_url)
