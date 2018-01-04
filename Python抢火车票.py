@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@author: liuyw
+@author: ssf
 """
 from splinter.browser import Browser
 from time import sleep
@@ -27,8 +27,10 @@ class huoche(object):
 	xb = u"二等座"
 	pz=u"成人票"
 	
-	##车次类型
-	train_types=["D"]
+	## 车次类型
+	train_types = [u"D", u"G"]
+	## 发车时间：时间格式
+	start_time = u"06:00--12:00"
 
 	"""网址"""
 	ticket_url = "https://kyfw.12306.cn/otn/leftTicket/init"
@@ -55,18 +57,22 @@ class huoche(object):
 				break
 
 	def preStart(self):
+		# 选择车次类型
 		for type in self.train_types
 			print(u'--------->选择车次类型', self.train_type)
 			# 车次类型选择
 			train_type_dict = {'T': u'T-特快',  			# 特快
-							   'G': u'GC-高铁/城际',  	# 高铁
+							   'G': u'GC-高铁/城际',  		# 高铁
                                'D': u'D-动车',  			# 动车
                                'Z': u'Z-直达'}  			# 直达
 			if train_type == 'T' or train_type == 'G' or train_type == 'D' or train_type == 'Z':
-				self.driver.find_option_by_text("06:00--12:00").first.click()
 				self.driver.find_by_text((train_type_dict[type]).click()
 			else:
 				print(u"车次类型异常或未选择!(train_type=%s)" % train_type)
+		
+		# 选择发车时间
+		print(u'--------->选择发车时间', self.start_time)
+		self.driver.find_option_by_text(self.start_time).first.click()
 		
 	def start(self):
 		self.driver=Browser(driver_name=self.driver_name,executable_path=self.executable_path)
