@@ -40,41 +40,42 @@ class huoche(object):
     #buy="https://kyfw.12306.cn/otn/confirmPassenger/initDc"
 	
     def readConfig(self, config_file='config.ini'):
-        cp = ConfigParser.ConfigParser()
+        path = r"/Users/san/githubDownload/12306Python/" + config_file
+        cp = ConfigParser()
         try:
-            cp.readfp(open(config_file, 'r'))
+            cp.read(path)
         except IOError as e:
             print(u'打开配置文件"%s"失败啦, 请先创建或者拷贝一份配置文件config.ini' % (config_file))
             raw_input('Press any key to continue')
             sys.exit()
         # 登录名
-        self.username = cp.get('login', 'username')
+        self.username = cp.get("login", "username")
         # 密码
-        self.password = cp.get('login', 'password')
+        self.password = cp.get("login", "password")
         # 始发站
-        self.starts = cp.get('cookieInfo', 'starts')
+        self.starts = cp.get("cookieInfo", "starts")
         # 终点站
-        self.ends = cp.get('cookieInfo', 'ends')
+        self.ends = cp.get("cookieInfo", "ends")
         # 乘车时间
-        self.dtime = cp.get('cookieInfo', 'dtime')
+        self.dtime = cp.get("cookieInfo", "dtime")
         # 车次
-        self.dtime = cp.get('cookieInfo', 'dtime')
+        self.dtime = cp.get("cookieInfo", "dtime")
         # 乘客名
-        self.users = cp.get('userInfo', 'users')
+        self.users = cp.get("userInfo", "users")
         # 车次类型
-        self.train_types = cp.get('trainInfo', 'train_types')
+        self.train_types = cp.get("trainInfo", "train_types")
         # 发车时间
-        self.start_time = cp.get('trainInfo', 'start_time')
+        self.start_time = cp.get("trainInfo", "start_time")
         # 网址
-        self.ticket_url = cp.get('urlInfo', 'ticket_url')
-        self.login_url = cp.get('urlInfo', 'login_url')
-        self.initmy_url = cp.get('urlInfo', 'initmy_url')
-        self.buy = cp.get('urlInfo', 'buy')       
+        self.ticket_url = cp.get("urlInfo", "ticket_url")
+        self.login_url = cp.get("urlInfo", "login_url")
+        self.initmy_url = cp.get("urlInfo", "initmy_url")
+        self.buy = cp.get("urlInfo", "buy")       
 
     def __init__(self):
         self.driver_name='chrome'
-        #self.executable_path='/usr/local/bin/chromedriver'
-        self.executable_path=r'C:\Users\sanshunfeng\Downloads\chromedriver.exe'
+        self.executable_path='/usr/local/bin/chromedriver'
+        #self.executable_path=r'C:\Users\sanshunfeng\Downloads\chromedriver.exe'
         # 读取配置文件，获得初始化参数
         self.readConfig();
 
