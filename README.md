@@ -10,7 +10,7 @@ python 12306Python.py
 ### 依赖包
 ```
 pip install splinter
-pip install ConfigParser
+pip install configparser
 ```
 ### chromedriver
 ```
