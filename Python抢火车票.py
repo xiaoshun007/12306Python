@@ -35,9 +35,9 @@ class huoche(object):
         # 车次
         self.order = cp.get("orderItem", "order")
         # 乘客名
-        self.users = cp.get("userInfo", "users")
+        self.users = cp.get("userInfo", "users").split(",")
         # 车次类型
-        self.train_types = cp.get("trainInfo", "train_types").split(',')
+        self.train_types = cp.get("trainInfo", "train_types").split(",")
         # 发车时间
         self.start_time = cp.get("trainInfo", "start_time")
         # 网址
@@ -68,19 +68,19 @@ class huoche(object):
     def preStart(self):
         # 选择车次类型
         for type in self.train_types:
-            print(u'--------->选择车次类型', type)
             # 车次类型选择
             train_type_dict = {'T': u'T-特快',                # 特快
                                 'G': u'GC-高铁/城际',         # 高铁
                                 'D': u'D-动车',               # 动车
                                 'Z': u'Z-直达'}               # 直达
             if type == 'T' or type == 'G' or type == 'D' or type == 'Z':
+                print(u'--------->选择的车次类型', train_type_dict[type])
                 self.driver.find_by_text(train_type_dict[type]).click()
             else:
                 print(u"车次类型异常或未选择!(train_type=%s)" % type)
 		
         # 选择发车时间
-        print(u'--------->选择发车时间', self.start_time)
+        print(u'--------->选择的发车时间', self.start_time)
         self.driver.find_option_by_text(self.start_time).first.click()
 		
     def start(self):
