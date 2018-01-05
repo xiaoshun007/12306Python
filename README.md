@@ -19,16 +19,30 @@ py12306 是一个 Python 3.x 版的12306.cn订票程序。
 ```
 
 ## Usage
-### 1、修改config配置
+### 1、修改配置（参照Config说明）
 ```
-参照Config说明
+    特别说明：
+        cookie获得方法：
+            1、打开页面：https://kyfw.12306.cn/otn/leftTicket/init
+            2、填入查询条件：出发地、目的地、出发日，点查询
+            3、F12 查看请求：https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-01-11&leftTicketDTO.from_station=WHN&leftTicketDTO.to_station=XFN&purpose_codes=ADULT
+                获得的Cookie如下：
+                    JSESSIONID=86D8CDAF7827575F7F77408C1FA56636;
+                    tk=WpRNTJ3H2eQMrACKjRfMy_z3ZAxCj7xmM0QWqzc_WUXzOt4nxh4240;
+                    RAIL_EXPIRATION=1515236695924;
+                    RAIL_DEVICEID=heRJ8B6tdNNQB407baLsk3K9txtAM5lxdBJfRuILqA9q4-J8V4r77saj_RthYKmUXuutlUeZpV0YXDBi9eWWoPfILlcLSjiP4EyG-gcGbdbDn2L4lvGIit2loz4XQQifHRbPK9XDguMkGdYJvs-_lmPVjojXQQsB;
+                    _jc_save_fromStation=%u6B66%u6C49%2CWHN;
+                    _jc_save_toStation=%u8944%u9633%2CXFN;
+                    _jc_save_fromDate=2018-01-11;
+                    _jc_save_toDate=2018-01-04;
+                    _jc_save_wfdc_flag=dc;
+                    route=6f50b51faa11b987e576cdb301e545c4;
+                    BIGipServerotn=267387402.50210.0000;
+                    BIGipServerpool_passport=334299658.50215.0000;
+                    current_captcha_type=Z;
+                    acw_tc=AQAAAD874WWPEAgAERWK2y+f03HYaK5h
 ```
-### 2、驱动路径配置
-```
-__init__方法：修改self.executable_path=r'C:\Users\xxx\Downloads\chromedriver.exe' 为自身的chromedriver.exe地址（后续做成可配置）；
-readConfig方法：修改path = r"D:\worspace-afw\12306Python\config.ini"为自身的config.ini路径
-```
-### 3、运行
+### 2、运行
 ```
 直接运行:
 python 12306Python.py
