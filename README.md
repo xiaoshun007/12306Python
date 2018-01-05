@@ -65,7 +65,7 @@ pip install configparser
 ```
 ### chromedriver
 ```
-1、下载chromedrive驱动
+1、下载chromedrive驱动：https://chromedriver.storage.googleapis.com/index.html?path=2.34/
 2、修改配置（Python抢火车票.py 方法 __init__() 中 self.executable_path=r'C:\Users\xxx\Downloads\chromedriver.exe'），executable_path为自身的chromedriver路径
 ```
 
