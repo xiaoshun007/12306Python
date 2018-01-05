@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """
+@time: 2018-01-04
 @author: ssf
 """
 from splinter.browser import Browser
@@ -7,6 +8,7 @@ from configparser import ConfigParser
 from time import sleep
 import traceback
 import time, sys
+import codecs
 
 class huoche(object):
     """docstring for huoche"""
@@ -15,10 +17,11 @@ class huoche(object):
 	
     """读取配置文件"""
     def readConfig(self, config_file='config.ini'):
-        path = r"/Users/san/githubDownload/12306Python/" + config_file
+        #path = r"/Users/san/githubDownload/12306Python/" + config_file
+        path = r"D:\worspace-afw\12306Python\config.ini"
         cp = ConfigParser()
         try:
-            cp.read(path)
+            cp.readfp(codecs.open(path, "r", "utf-8-sig"))
         except IOError as e:
             print(u'打开配置文件"%s"失败啦, 请先创建或者拷贝一份配置文件config.ini' % (config_file))
             raw_input('Press any key to continue')
@@ -34,7 +37,8 @@ class huoche(object):
         # 乘车时间
         self.dtime = cp.get("cookieInfo", "dtime")
         # 车次
-        self.order = cp.get("orderItem", "order")
+        orderStr = cp.get("orderItem", "order")
+        self.order = int(orderStr)
         # 乘客名
         self.users = cp.get("userInfo", "users").split(",")
         # 车次类型
@@ -49,8 +53,8 @@ class huoche(object):
 
     def __init__(self):
         self.driver_name='chrome'
-        self.executable_path='/usr/local/bin/chromedriver'
-        #self.executable_path=r'C:\Users\sanshunfeng\Downloads\chromedriver.exe'
+        #self.executable_path='/usr/local/bin/chromedriver'
+        self.executable_path=r'C:\Users\sanshunfeng\Downloads\chromedriver.exe'
         # 读取配置文件，获得初始化参数
         self.readConfig();
 
@@ -71,6 +75,7 @@ class huoche(object):
     def searchMore(self):
         # 选择车次类型
         for type in self.train_types:
+            #type = type.replace("\"", "")
             # 车次类型选择
             train_type_dict = {'T': u'T-特快',                # 特快
                                 'G': u'GC-高铁/城际',         # 高铁
@@ -89,14 +94,12 @@ class huoche(object):
     """填充查询条件"""
     def preStart(self):
         # 加载查询信息
-        ## 出发地
+        # 出发地
         self.driver.cookies.add({"_jc_save_fromStation": self.starts})
-        ## 目的地
+        # 目的地
         self.driver.cookies.add({"_jc_save_toStation": self.ends})
-        ## 出发日
+        # 出发日
         self.driver.cookies.add({"_jc_save_fromDate": self.dtime})
-        ## 勾选车次类型，发车时间
-        self.searchMore();
 
     def start(self):
         self.driver=Browser(driver_name=self.driver_name,executable_path=self.executable_path)
@@ -118,8 +121,9 @@ class huoche(object):
             # 预定车次算法：根据order的配置确定开始点击预订的车次，0-从上至下点击
             if self.order!=0:
                 while self.driver.url==self.ticket_url:
-                    #self.preStart()
-                    #sleep(0.05)
+                    # 勾选车次类型，发车时间
+                    self.searchMore();
+                    sleep(0.05)
                     self.driver.find_by_text(u"查询").click()
                     count += 1
                     print(u"循环点击查询... 第 %s 次" % count)
@@ -132,7 +136,8 @@ class huoche(object):
                         continue
             else:
                 while self.driver.url == self.ticket_url:
-                    #self.preStart()
+                    # 勾选车次类型，发车时间
+                    self.searchMore();
                     #sleep(0.05)
                     self.driver.find_by_text(u"查询").click()
                     count += 1
