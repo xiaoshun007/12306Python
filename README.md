@@ -1,26 +1,27 @@
 # 12306Python
-py12306 是一个 Python 3.x 版的12306.cn订票程序。
+Python抢火车票 是一个 Python 3.x 版的[12306.cn](http://www.12306.cn/mormhweb/)自动订票程序。
 
 ## 功能介绍
 ```
-唯一需要手动操作的是：等待浏览器页面跳出后输入验证码点击登录
-目前支持的功能：
+Python抢火车票 是一个 Python 3.x 版的12306.cn订票程序。执行程序，等待浏览器页面跳出后输入验证码点击登录，即可完成自动购票。
+支持的功能：
     1、支持配置出发地、目的地、乘车日
     2、支持配置车次类型（动车、高铁等）
     3、支持配置出发时间
     4、需要手动输入登录验证码
-    5、支持配置预定车次的选择顺序（order字段，暂时只支持配置成0，车次选择算法待优化）
-    6、预定、购票自动完成	
+    5、支持配置预定车次的选择顺序（order字段，暂时只支持配置成0，即从上至下选择，车次选择算法待优化）
+    6、支持预定、购票自动完成	
+    7、支持配置文件路径指定
    
 还不支持的功能：
-    1、chromedriver不支持可配置
-    2、不支持车次选择
-    3、不支持席别选择
+    1、不支持席别选择
 ```
 
 ## Usage
 ### 1、修改配置（参照Config说明）
 ```
+直接修改 Python抢火车票.py 当前目录下的config.ini 或者 拷贝一份 config.ini 到任意目录，在执行时指定绝对路径
+
     特别说明：
         cookie获得方法：
             1、打开页面：https://kyfw.12306.cn/otn/leftTicket/init
@@ -44,8 +45,14 @@ py12306 是一个 Python 3.x 版的12306.cn订票程序。
 ```
 ### 2、运行
 ```
-直接运行:
-python 12306Python.py
+方式一：直接运行（使用Python抢火车票.py相同目录下的config.ini）
+	python Python抢火车票.py
+
+方式二：指定config.ini路径
+	python Python抢火车票.py -c /Users/xxx/config.ini
+
+	参数说明：
+		'-c', '--config', '可选参数, 指定配置文件, 默认使用当前目录 config.ini'
 ```
 ### 3、输入验证码
 ```
@@ -53,7 +60,7 @@ python 12306Python.py
 ```
 ### 4、完成支付
 ```
-等待自动完成选票、提交订单，支付订单
+等待自动完成选票、提交订单，完成后自行支付订单
 ```
 
 ## 环境说明
@@ -66,7 +73,7 @@ pip install configparser
 ### chromedriver
 ```
 1、下载chromedrive驱动：https://chromedriver.storage.googleapis.com/index.html?path=2.34/
-2、修改配置（Python抢火车票.py 方法 __init__() 中 self.executable_path=r'C:\Users\xxx\Downloads\chromedriver.exe'），executable_path为自身的chromedriver路径
+2、注意浏览器chrome与chromedriver的对应版本（我的chrome是63+，因此选择2.34的chromedriver）
 ```
 
 ## Config说明
@@ -129,15 +136,22 @@ ticket_url = https://kyfw.12306.cn/otn/leftTicket/init
 login_url = https://kyfw.12306.cn/otn/login/init
 initmy_url = https://kyfw.12306.cn/otn/index/initMy12306
 buy = https://kyfw.12306.cn/otn/confirmPassenger/initDc
+
+## 路径信息
+[pathInfo]
+### driver_name: 浏览器名称，必选参数
+driver_name = chrome
+### executable_path: 浏览器驱动路径，必选参数，根据实际的chromedriver路径指定
+### windows路径例如：C:\Users\xxx\Downloads\chromedriver.exe
+executable_path = /usr/local/bin/chromedriver
 ```
 
 ## TODO
 ```
-1、支持控制台命令
-2、支持邮件提醒
-3、支持席别选择
-4、转换为可执行文件，去除Python强依赖
-5、。。。
+1、支持邮件提醒
+2、支持席别选择
+3、转换为可执行文件，去除Python强依赖
+4、。。。
 ```
 
 LICENSE
