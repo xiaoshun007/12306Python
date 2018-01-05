@@ -19,15 +19,28 @@ py12306 是一个 Python 3.x 版的12306.cn订票程序。
 ```
 
 ## Usage
-### 1、修改配置（参照Config说明）
-### 2、__init__方法：修改self.executable_path=r'C:\Users\xxx\Downloads\chromedriver.exe' 为自身的chromedriver.exe地址（后续做成可配置）；readConfig方法：修改path = r"D:\worspace-afw\12306Python\config.ini"为自身的config.ini路径
+### 1、修改config配置
+```
+参照Config说明
+```
+### 2、驱动路径配置
+```
+__init__方法：修改self.executable_path=r'C:\Users\xxx\Downloads\chromedriver.exe' 为自身的chromedriver.exe地址（后续做成可配置）；
+readConfig方法：修改path = r"D:\worspace-afw\12306Python\config.ini"为自身的config.ini路径
+```
 ### 3、运行
 ```
 直接运行:
 python 12306Python.py
 ```
-### 3、等待跳出浏览器页面，输入验证码，点击登录
-### 4、自动完成选票、提交订单
+### 3、输入验证码
+```
+等待跳出浏览器页面，输入验证码，点击登录
+```
+### 4、完成支付
+```
+等待自动完成选票、提交订单，支付订单
+```
 
 ## 环境说明
 ### Python版本 3.X
@@ -101,6 +114,15 @@ ticket_url = https://kyfw.12306.cn/otn/leftTicket/init
 login_url = https://kyfw.12306.cn/otn/login/init
 initmy_url = https://kyfw.12306.cn/otn/index/initMy12306
 buy = https://kyfw.12306.cn/otn/confirmPassenger/initDc
+```
+
+## TODO
+```
+1、支持控制台命令
+2、支持邮件提醒
+3、支持席别选择
+4、转换为可执行文件，去除Python强依赖
+5、。。。
 ```
 
 LICENSE
