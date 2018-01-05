@@ -1,9 +1,9 @@
 # 12306Python
-Python抢火车票 是一个 Python 3.x 版的[12306.cn](http://www.12306.cn/mormhweb/)自动订票程序。
+hack12306.py 是一个 Python 3.x 版的[12306.cn](http://www.12306.cn/mormhweb/)自动订票程序。
 
 ## 功能介绍
 ```
-Python抢火车票 是一个 Python 3.x 版的12306.cn订票程序。执行程序，等待浏览器页面跳出后输入验证码点击登录，即可完成自动购票。
+hack12306.py 是一个 Python 3.x 版的12306.cn订票程序。执行程序，等待浏览器页面跳出后输入验证码点击登录，即可完成自动购票。
 支持的功能：
     1、支持配置出发地、目的地、乘车日
     2、支持配置车次类型（动车、高铁等）
@@ -20,7 +20,7 @@ Python抢火车票 是一个 Python 3.x 版的12306.cn订票程序。执行程�
 ## Usage
 ### 1、修改配置（参照Config说明）
 ```
-直接修改 Python抢火车票.py 当前目录下的config.ini 或者 拷贝一份 config.ini 到任意目录，在执行时指定绝对路径
+直接修改 hack12306.py 当前目录下的config.ini 或者 拷贝一份 config.ini 到任意目录，在执行时指定绝对路径
 
     特别说明：
         cookie获得方法：
@@ -45,11 +45,11 @@ Python抢火车票 是一个 Python 3.x 版的12306.cn订票程序。执行程�
 ```
 ### 2、运行
 ```
-方式一：直接运行（使用Python抢火车票.py相同目录下的config.ini）
-	python Python抢火车票.py
+方式一：直接运行（使用hack12306.py相同目录下的config.ini）
+	python hack12306.py
 
 方式二：指定config.ini路径
-	python Python抢火车票.py -c /Users/xxx/config.ini
+	python hack12306.py -c /Users/xxx/config.ini
 
 	参数说明：
 		'-c', '--config', '可选参数, 指定配置文件, 默认使用当前目录 config.ini'
