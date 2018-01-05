@@ -51,10 +51,10 @@ hack12306.py 是一个 Python 3.x 版的12306.cn订票程序。执行程序，�
 ```
 ### 2、运行
 ```
-方式一：直接运行（使用hack12306.py相同目录下的config.ini）
+方式一：直接运行（配置文件使用hack12306.py相同目录下的config.ini）
 	python hack12306.py
 
-方式二：指定config.ini路径
+方式二：指定config.ini路径（配置文件使用指定的config.ini）
 	python hack12306.py -c /Users/xxx/config.ini
 
 	参数说明：
