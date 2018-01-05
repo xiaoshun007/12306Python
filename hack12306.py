@@ -98,7 +98,7 @@ class huoche(object):
             train_type_dict = {'T': u'T-特快',                # 特快
                                 'G': u'GC-高铁/城际',         # 高铁
                                 'D': u'D-动车',               # 动车
-                                'Z': u'Z-直达'                # 直达
+                                'Z': u'Z-直达',               # 直达
                                 'K': u'K-快速'                # 快速
                                 }
             if type == 'T' or type == 'G' or type == 'D' or type == 'Z':
