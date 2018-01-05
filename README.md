@@ -9,18 +9,25 @@ py12306 是一个 Python 3.x 版的12306.cn订票程序。
     2、支持配置车次类型（动车、高铁等）
     3、支持配置出发时间
     4、需要手动输入登录验证码
-    5、支持配置预定车次的选择顺序（order字段）
+    5、支持配置预定车次的选择顺序（order字段，暂时只支持配置成0，车次选择算法待优化）
     6、预定、购票自动完成	
+   
+还不支持的功能：
+    1、chromedriver不支持可配置
+    2、不支持车次选择
+    3、不支持席别选择
 ```
 
 ## Usage
 ### 1、修改配置（参照Config说明）
-### 2、运行
+### 2、__init__方法：修改self.executable_path=r'C:\Users\xxx\Downloads\chromedriver.exe' 为自身的chromedriver.exe地址（后续做成可配置）；readConfig方法：修改path = r"D:\worspace-afw\12306Python\config.ini"为自身的config.ini路径
+### 3、运行
 ```
 直接运行:
 python 12306Python.py
 ```
 ### 3、等待跳出浏览器页面，输入验证码，点击登录
+### 4、自动完成选票、提交订单
 
 ## 环境说明
 ### Python版本 3.X
@@ -31,7 +38,7 @@ pip install configparser
 ```
 ### chromedriver
 ```
-下载chromedrive驱动，修改配置
+下载chromedrive驱动，修改配置（）
 ```
 
 ## Config说明
