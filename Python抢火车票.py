@@ -21,6 +21,7 @@ class huoche(object):
         path = r"D:\worspace-afw\12306Python\config.ini"
         cp = ConfigParser()
         try:
+            # 指定读取config.ini编码格式，防止乱码
             cp.readfp(codecs.open(path, "r", "utf-8-sig"))
         except IOError as e:
             print(u'打开配置文件"%s"失败啦, 请先创建或者拷贝一份配置文件config.ini' % (config_file))
