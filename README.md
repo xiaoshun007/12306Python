@@ -1,6 +1,6 @@
 # 12306Python
 
-![](https://img.shields.io/badge/language-python-blue.svg)
+![](https://img.shields.io/badge/language-python-blue.svg) ![](https://img.shields.io/badge/hack12306-v1.0-519dd9.svg)
 
 hack12306.py 是一个 Python 3.x 版的[12306.cn](http://www.12306.cn/mormhweb/)自动订票程序。
 
