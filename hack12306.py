@@ -10,21 +10,23 @@ import traceback
 import time, sys
 import codecs
 import argparse
+import os
 
-class huoche(object):
-    """docstring for huoche"""
-    driver_name=''
-    executable_path=''
+class hackTickets(object):
+    """docstring for hackTickets"""
 	
     """读取配置文件"""
     def readConfig(self, config_file='config.ini'):
+        # 补充文件路径，获得config.ini的绝对路径，默认为主程序当前目录
+        path = os.path.join(os.getcwd(), config_file)
+
         cp = ConfigParser()
         try:
             # 指定读取config.ini编码格式，防止中文乱码（兼容windows）
             cp.readfp(codecs.open(config_file, "r", "utf-8-sig"))
         except IOError as e:
             print(u'打开配置文件"%s"失败, 请先创建或者拷贝一份配置文件config.ini' % (config_file))
-            raw_input('Press any key to continue')
+            input('Press any key to continue')
             sys.exit()
         # 登录名
         self.username = cp.get("login", "username")
@@ -210,5 +212,5 @@ class huoche(object):
         self.buyTickets();
 
 if __name__ == '__main__':
-    huoche=huoche()
-    huoche.start()
+    hackTickets = hackTickets()
+    hackTickets.start()
