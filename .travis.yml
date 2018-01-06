@@ -1,2 +1,3 @@
 language: python
-script: make test
+python:
+    - "3.6"
