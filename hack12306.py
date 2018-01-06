@@ -86,6 +86,9 @@ class hackTickets(object):
             # 使用默认的配置文件config.ini
             self.readConfig()
 
+    """
+        加载映射文件，并将中文"武汉"转换成编码后的格式：“武汉,WHN“
+    """
     def loadCityCode(self):
         city_codes = {}
         with open('city_code.txt', 'r+') as f:
@@ -95,9 +98,6 @@ class hackTickets(object):
                 city_codes[city] = city + "," + code
         return city_codes
 
-    """
-        将中文"武汉"转换成编码后的格式：“武汉,WHN“
-    """
     def convertCityToCode(self, c):
         try:
             return self.city_codes[c]
@@ -106,6 +106,7 @@ class hackTickets(object):
             return False
 
     def __init__(self):
+        # 读取城市中文与三字码映射文件，获得转换后到城市信息-- “武汉”: "武汉,WHN"
         self.city_codes = self.loadCityCode();
 
         # 读取配置文件，获得初始化参数
@@ -192,7 +193,7 @@ class hackTickets(object):
                 while self.driver.url == self.ticket_url:
                     # 勾选车次类型，发车时间
                     self.searchMore();
-                    
+                    sleep(0.05)
                     self.driver.find_by_text(u"查询").click()
                     count += 1
                     print(u"循环点击查询... 第 %s 次" % count)
