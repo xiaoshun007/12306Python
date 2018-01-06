@@ -3,6 +3,19 @@
 @time: 2018-01-04
 @author: ssf
 """
+
+"""
+Usage:
+    python hack12306.py [-c] <configpath>
+Options:
+    -h,--help   显示帮助菜单
+    -c          指定config.ini绝对路径
+Example:
+    python hack12306.py -c /usr/local/services/config.ini
+    或者
+    python hack12306.py
+"""
+
 from splinter.browser import Browser
 from configparser import ConfigParser
 from time import sleep
