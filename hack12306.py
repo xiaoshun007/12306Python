@@ -103,7 +103,7 @@ class hackTickets(object):
                                 'Z': u'Z-直达',               # 直达
                                 'K': u'K-快速'                # 快速
                                 }
-            if type == 'T' or type == 'G' or type == 'D' or type == 'Z':
+            if type == 'T' or type == 'G' or type == 'D' or type == 'Z' or type == 'K':
                 print(u'--------->选择的车次类型', train_type_dict[type])
                 self.driver.find_by_text(train_type_dict[type]).click()
             else:
