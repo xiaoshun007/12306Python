@@ -156,7 +156,6 @@ class hackTickets(object):
         # 加载查询信息
         # 出发地
         self.driver.cookies.add({"_jc_save_fromStation": self.starts})
-        print(self.driver.cookies["_jc_save_fromStation"])
         # 目的地
         self.driver.cookies.add({"_jc_save_toStation": self.ends})
         # 出发日
