@@ -61,12 +61,15 @@ hack12306.py 是一个 Python 3.x 版的12306.cn订票程序。执行程序，�
 		'-c', '--config', '可选参数, 指定配置文件, 默认使用当前目录 config.ini'
 
 方式三：下载可执行文件执行
-    [windows版](https://github.com/xiaoshun007/12306Python/releases)
     1、下载可执行程序
     2、配置config.ini，放在可执行程序同级目录
     3、双击运行程序
 
 ```
+
+### 可执行程序下载地址
+[下载 hack12306 可执行程序](https://github.com/xiaoshun007/12306Python/releases)
+
 ### 3、输入验证码
 ```
 等待跳出浏览器页面，输入验证码，点击登录
