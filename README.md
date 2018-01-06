@@ -72,6 +72,12 @@ hack12306.py 是一个 Python 3.x 版的12306.cn订票程序。执行程序，�
 
 ### 可执行程序下载地址
 [下载 hack12306 可执行程序](https://github.com/xiaoshun007/12306Python/releases)
+```
+可执行文件说明：
+    1、本程序的可执行文件都是通过 pyinstaller 转换的，如果不能时候，请pull最新代码，重新转换
+        pyinstaller -onefile <scriptName>
+    2、下载后解压，按照上文【2、运行】-> 方式三 步骤执行
+```
 
 ### 3、输入验证码
 ```
