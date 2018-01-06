@@ -9,7 +9,11 @@ hack12306.py 是一个 Python 3.x 版的[12306.cn](http://www.12306.cn/mormhweb/
 config.ini：登录名、密码等的配置文件
 hack12306.py：主程序
 city_code.txt：城市中文名称与三字码对应文件
+resoures：存放的一些资源信息
 ```
+
+## 设计
+![image](https://github.com/xiaoshun007/12306Python/blob/master/resources/images/流程图.png)
 
 ## 功能介绍
 ```
