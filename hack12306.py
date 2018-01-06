@@ -46,9 +46,12 @@ class hackTickets(object):
         # 密码
         self.passwd = cp.get("login", "password")
         # 始发站
-        self.starts = cp.get("cookieInfo", "starts")
+        starts_city = cp.get("cookieInfo", "starts")
+        # config.ini配置的是中文，转换成"武汉,WHN"，再进行编码
+        self.starts = self.convertCityToCode(starts_city).encode('unicode_escape').decode("utf-8").replace("\\u", "%u").replace(",", "%2c")
         # 终点站
-        self.ends = cp.get("cookieInfo", "ends")
+        ends_city = cp.get("cookieInfo", "ends");
+        self.ends = self.convertCityToCode(ends_city).encode('unicode_escape').decode("utf-8").replace("\\u", "%u").replace(",", "%2c")
         # 乘车时间
         self.dtime = cp.get("cookieInfo", "dtime")
         # 车次
@@ -83,7 +86,28 @@ class hackTickets(object):
             # 使用默认的配置文件config.ini
             self.readConfig()
 
+    def loadCityCode(self):
+        city_codes = {}
+        with open('city_code.txt', 'r+') as f:
+            for l in f.readlines():
+                city = l.split(':')[0]
+                code = l.split(':')[1].strip()
+                city_codes[city] = city + "," + code
+        return city_codes
+
+    """
+        将中文"武汉"转换成编码后的格式：“武汉,WHN“
+    """
+    def convertCityToCode(self, c):
+        try:
+            return self.city_codes[c]
+        except KeyError:
+            print("转换城市错误，请修改config.ini中starts或者ends值为中文城市名")
+            return False
+
     def __init__(self):
+        self.city_codes = self.loadCityCode();
+
         # 读取配置文件，获得初始化参数
         self.loadConfig();
 
@@ -131,6 +155,7 @@ class hackTickets(object):
         # 加载查询信息
         # 出发地
         self.driver.cookies.add({"_jc_save_fromStation": self.starts})
+        print(self.driver.cookies["_jc_save_fromStation"])
         # 目的地
         self.driver.cookies.add({"_jc_save_toStation": self.ends})
         # 出发日
@@ -142,7 +167,7 @@ class hackTickets(object):
             
             # 填充查询条件
             self.preStart()
-
+            
             # 带着查询条件，重新加载页面
             self.driver.reload()
 
