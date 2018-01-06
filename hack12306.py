@@ -202,6 +202,7 @@ class hackTickets(object):
                             i.click()
                             # 等待0.3秒，提交等待的时间
                             sleep(0.3)
+
                     except Exception as e:
                         print(e)
                         print(u"还没开始预订 %s" %count)
