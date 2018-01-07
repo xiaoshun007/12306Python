@@ -1,6 +1,6 @@
 # 12306Python
 
-![](https://img.shields.io/badge/language-python-blue.svg) ![](https://img.shields.io/badge/hack12306-v1.0.1-519dd9.svg)
+![](https://img.shields.io/badge/language-python-blue.svg) ![](https://img.shields.io/badge/hack12306-v1.0.2-519dd9.svg)
 
 hack12306.py 是一个 Python 3.x 版的[12306.cn](http://www.12306.cn/mormhweb/)自动订票程序。利用[splinter](https://splinter.readthedocs.io/en/latest/index.html)（一个开源的用来通过python自动化测试web的工具），让电脑自动操作网页。
 
