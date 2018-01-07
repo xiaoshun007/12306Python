@@ -24,12 +24,14 @@ import time, sys
 import codecs
 import argparse
 import os
+import time
 
 class hackTickets(object):
     """docstring for hackTickets"""
 	
     """读取配置文件"""
     def readConfig(self, config_file='config.ini'):
+        print("加载配置文件...")
         # 补充文件路径，获得config.ini的绝对路径，默认为主程序当前目录
         path = os.path.join(os.getcwd(), config_file)
 
@@ -90,8 +92,10 @@ class hackTickets(object):
         加载映射文件，并将中文"武汉"转换成编码后的格式：“武汉,WHN“
     """
     def loadCityCode(self):
+        print("映射出发地、目的地...")
         city_codes = {}
-        with open('city_code.txt', 'r+') as f:
+        path = os.path.join(os.getcwd(), 'city_code.txt')
+        with codecs.open(path, "r", "utf-8-sig") as f:
             for l in f.readlines():
                 city = l.split(':')[0]
                 code = l.split(':')[1].strip()
@@ -113,6 +117,7 @@ class hackTickets(object):
         self.loadConfig();
 
     def login(self):
+        print("开始登录...")
         # 登录
         self.driver.visit(self.login_url)
         # 自动填充用户名
@@ -162,6 +167,7 @@ class hackTickets(object):
         self.driver.cookies.add({"_jc_save_fromDate": self.dtime})
 
     def buyTickets(self):
+        t = time.clock()
         try:
             print(u"购票页面开始...")
             
@@ -231,6 +237,8 @@ class hackTickets(object):
             print(u"确认选座...")
             self.driver.find_by_id('qr_submit_id').click()
 
+            print (time.clock() - t)
+
         except Exception as e:
             print(e)
 
@@ -251,5 +259,8 @@ class hackTickets(object):
         self.buyTickets();
 
 if __name__ == '__main__':
+    print("===========hack12306 begin===========")
+    begin = time.clock()
     hackTickets = hackTickets()
     hackTickets.start()
+    print (time.clock() - begin)
