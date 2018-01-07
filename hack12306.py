@@ -72,6 +72,10 @@ class hackTickets(object):
         self.initmy_url = cp.get("urlInfo", "initmy_url")
         self.buy = cp.get("urlInfo", "buy")
 
+        # 席别
+        seat_type = cp.get("confirmInfo", "seat_type")
+        self.seatType = self.seatMap[seat_type] if seat_type in self.seatMap else ""
+
         # 浏览器名称：目前使用的是chrome
         self.driver_name = cp.get("pathInfo", "driver_name")
         # 浏览器驱动（目前使用的是chromedriver）路径
@@ -109,9 +113,27 @@ class hackTickets(object):
             print("转换城市错误，请修改config.ini中starts或者ends值为中文城市名")
             return False
 
+    """加载席别编码"""
+    def loadSeatType(self):
+        self.seatMap = {
+            "硬座" : "1",
+            "硬卧" : "3",
+            "软卧" : "4",
+            "一等软座" : "7",
+            "二等软座" : "8",
+            "商务座" : "9",
+            "一等座" : "M",
+            "二等座" : "O",
+            "混编硬座" : "B",
+            "特等座" : "P"
+        }
+
     def __init__(self):
         # 读取城市中文与三字码映射文件，获得转换后到城市信息-- “武汉”: "武汉,WHN"
         self.city_codes = self.loadCityCode();
+
+        # 加载席别
+        self.loadSeatType()
 
         # 读取配置文件，获得初始化参数
         self.loadConfig();
@@ -138,7 +160,6 @@ class hackTickets(object):
     def searchMore(self):
         # 选择车次类型
         for type in self.train_types:
-            #type = type.replace("\"", "")
             # 车次类型选择
             train_type_dict = {'T': u'T-特快',                # 特快
                                 'G': u'GC-高铁/城际',         # 高铁
@@ -154,7 +175,10 @@ class hackTickets(object):
 		
         # 选择发车时间
         print(u'--------->选择的发车时间', self.start_time)
-        self.driver.find_option_by_text(self.start_time).first.click()
+        if self.start_time:
+            self.driver.find_option_by_text(self.start_time).first.click()
+        else:
+            print(u"未指定发车时间，默认00:00-24:00")
 	
     """填充查询条件"""
     def preStart(self):
@@ -220,6 +244,12 @@ class hackTickets(object):
             for user in self.users:
                 self.driver.find_by_text(user).last.click()
 
+            print(u"选择席别...")
+            if self.seatType:
+                self.driver.find_by_value(self.seatType).click()
+            else:
+                print(u"未指定席别，按照12306默认席别")
+
             print(u"提交订单...")
             sleep(1)
             # self.driver.find_by_text(self.pz).click()
@@ -237,7 +267,7 @@ class hackTickets(object):
             print(u"确认选座...")
             self.driver.find_by_id('qr_submit_id').click()
 
-            print (time.clock() - t)
+            print(time.clock() - t)
 
         except Exception as e:
             print(e)
@@ -260,7 +290,5 @@ class hackTickets(object):
 
 if __name__ == '__main__':
     print("===========hack12306 begin===========")
-    begin = time.clock()
     hackTickets = hackTickets()
     hackTickets.start()
-    print (time.clock() - begin)
