@@ -4,6 +4,9 @@
 
 hack12306.py 是一个 Python 3.x 版的[12306.cn](http://www.12306.cn/mormhweb/)自动订票程序。利用[splinter](https://splinter.readthedocs.io/en/latest/index.html)（一个开源的用来通过python自动化测试web的工具），让电脑自动操作网页。
 
+## 码云地址
+### [hack12306](https://gitee.com/xiaoshun/12306Python)
+
 ## 说明
 ```
 config.ini：登录名、密码等的配置文件
