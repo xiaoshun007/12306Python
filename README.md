@@ -16,7 +16,7 @@ resoures：存放的一些资源信息
 ```
 
 ## 设计
-![image](https://github.com/xiaoshun007/12306Python/blob/master/resources/images/流程图.png)
+![image](https://github.com/xiaoshun007/12306Python/blob/master/resources/images/流程图.jpg)
 
 ## 功能介绍
 ```
