@@ -202,9 +202,9 @@ class hackTickets(object):
             self.driver.reload()
 
             count=0
-            # 预定车次算法：根据order的配置确定开始点击预订的车次，0-从上至下点击
+            # 预定车次算法：根据order的配置确定开始点击预订的车次，0-从上至下点击，1-第一个车次，2-第二个车次，类推
             if self.order!=0:
-                while self.driver.url==self.ticket_url:
+                while self.driver.url == self.ticket_url:
                     # 勾选车次类型，发车时间
                     self.searchMore();
                     sleep(0.05)
@@ -214,6 +214,7 @@ class hackTickets(object):
                     
                     try:
                         self.driver.find_by_text(u"预订")[self.order - 1].click()
+                        sleep(0.3)
                     except Exception as e:
                         print(e)
                         print(u"还没开始预订")

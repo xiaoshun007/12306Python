@@ -1,6 +1,6 @@
 # 12306Python
 
-![](https://img.shields.io/badge/language-python-blue.svg) ![](https://img.shields.io/badge/hack12306-v1.0.2-519dd9.svg)
+![](https://img.shields.io/badge/language-python-blue.svg) ![](https://img.shields.io/badge/hack12306-v1.0.3-519dd9.svg)
 
 hack12306.py 是一个 Python 3.x 版的[12306.cn](http://www.12306.cn/mormhweb/)自动订票程序。利用[splinter](https://splinter.readthedocs.io/en/latest/index.html)（一个开源的用来通过python自动化测试web的工具），让电脑自动操作网页。
 
@@ -27,7 +27,7 @@ resoures：存放的一些资源信息
     2、支持配置车次类型（动车、高铁等）
     3、支持配置出发时间
     4、需要手动输入登录验证码
-    5、支持配置预定车次的选择顺序（order字段，暂时只支持配置成0，即从上至下选择，车次选择算法待优化）
+    5、支持配置预定车次的选择顺序（使用order字段配置，数字0：从上至下选择；数字x（1、2、3、4...）：车次从上到下的序号，配置2表示列表中的第二个车次）
     6、支持预定、购票自动完成	
     7、支持配置文件路径指定
     8、支持席别指定
@@ -161,10 +161,12 @@ ends=南京
 ## 时间格式2018-01-19
 dtime=2018-01-11
 
-## order：车次，选择第几趟，0则从上至下依次点击，必选参数，有效值如下：
+## order：车次，选择第几趟，0则从上至下依次点击，必选参数，如果要特定车次，需要先找到车次在列表中的次序，有效值如下：
 #### 0->从上至下点击
+#### 1->第一个车次
+#### 2->第二个车次
 [orderItem]
-order=0
+order=2
 
 ## users：乘客姓名，必选参数，中文姓名，支持多个乘客，用英文逗号隔开，例如：张三,李四
 ### 乘客姓名需要提前加入到登录的12306账号的联系人中，为了程序自动选择乘客姓名
@@ -218,12 +220,8 @@ buy = https://kyfw.12306.cn/otn/confirmPassenger/initDc
 ### driver_name: 浏览器名称，必选参数
 driver_name = chrome
 ### executable_path: 浏览器驱动路径，必选参数
-### windows路径例如：C:\Users\xxx\Downloads\chromedriver.exe
-executable_path = /usr/local/bin/chromedriver
-
-
-
-
+### windows路径例如：C:\Users\sanshunfeng\Downloads\chromedriver.exe
+executable_path = C:\Users\sanshunfeng\Downloads\chromedriver.exe
 
 
 
