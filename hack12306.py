@@ -190,6 +190,69 @@ class hackTickets(object):
         # 出发日
         self.driver.cookies.add({"_jc_save_fromDate": self.dtime})
 
+    def specifyTrainNo(self):
+        count=0
+        while self.driver.url == self.ticket_url:
+            # 勾选车次类型，发车时间
+            self.searchMore();
+            sleep(0.05)
+            self.driver.find_by_text(u"查询").click()
+            count += 1
+            print(u"循环点击查询... 第 %s 次" % count)
+            
+            try:
+                self.driver.find_by_text(u"预订")[self.order - 1].click()
+                sleep(0.3)
+            except Exception as e:
+                print(e)
+                print(u"还没开始预订")
+                continue
+    
+    def buyOrderZero(self):
+        count=0
+        while self.driver.url == self.ticket_url:
+            # 勾选车次类型，发车时间
+            self.searchMore();
+            sleep(0.05)
+            self.driver.find_by_text(u"查询").click()
+            count += 1
+            print(u"循环点击查询... 第 %s 次" % count)
+            
+            try:
+                for i in self.driver.find_by_text(u"预订"):
+                    i.click()
+                    # 等待0.3秒，提交等待的时间
+                    sleep(0.3)
+
+            except Exception as e:
+                print(e)
+                print(u"还没开始预订 %s" %count)
+                continue
+    
+    def selUser(self):
+        print(u'开始选择用户...')
+        for user in self.users:
+            self.driver.find_by_text(user).last.click()
+    
+    def confirmOrder(self):
+        print(u"选择席别...")
+        if self.seatType:
+            self.driver.find_by_value(self.seatType).click()
+        else:
+            print(u"未指定席别，按照12306默认席别")
+    
+    def submitOrder(self):
+        print(u"提交订单...")
+        sleep(1)
+
+        self.driver.find_by_id('submitOrder_id').click()
+    
+    def confirmSeat(self):
+        # 若提交订单异常，请适当加大sleep的时间
+        sleep(1)
+        print(u"确认选座...")
+        self.driver.find_by_id('qr_submit_id').click()
+            
     def buyTickets(self):
         t = time.clock()
         try:
@@ -201,65 +264,24 @@ class hackTickets(object):
             # 带着查询条件，重新加载页面
             self.driver.reload()
 
-            count=0
             # 预定车次算法：根据order的配置确定开始点击预订的车次，0-从上至下点击，1-第一个车次，2-第二个车次，类推
-            if self.order!=0:
-                while self.driver.url == self.ticket_url:
-                    # 勾选车次类型，发车时间
-                    self.searchMore();
-                    sleep(0.05)
-                    self.driver.find_by_text(u"查询").click()
-                    count += 1
-                    print(u"循环点击查询... 第 %s 次" % count)
-                    
-                    try:
-                        self.driver.find_by_text(u"预订")[self.order - 1].click()
-                        sleep(0.3)
-                    except Exception as e:
-                        print(e)
-                        print(u"还没开始预订")
-                        continue
+            if self.order != 0:
+                # 指定车次预订
+                self.specifyTrainNo()
             else:
-                while self.driver.url == self.ticket_url:
-                    # 勾选车次类型，发车时间
-                    self.searchMore();
-                    sleep(0.05)
-                    self.driver.find_by_text(u"查询").click()
-                    count += 1
-                    print(u"循环点击查询... 第 %s 次" % count)
-                    
-                    try:
-                        for i in self.driver.find_by_text(u"预订"):
-                            i.click()
-                            # 等待0.3秒，提交等待的时间
-                            sleep(0.3)
-
-                    except Exception as e:
-                        print(e)
-                        print(u"还没开始预订 %s" %count)
-                        continue
+                # 默认选票
+                self.buyOrderZero()
             print(u"开始预订...")
             
             sleep(0.8)
-            print(u'开始选择用户...')
-            for user in self.users:
-                self.driver.find_by_text(user).last.click()
-
-            print(u"选择席别...")
-            if self.seatType:
-                self.driver.find_by_value(self.seatType).click()
-            else:
-                print(u"未指定席别，按照12306默认席别")
-
-            print(u"提交订单...")
-            sleep(1)
-
-            self.driver.find_by_id('submitOrder_id').click()
-
-            # 若提交订单异常，请适当加大sleep的时间
-            sleep(1)
-            print(u"确认选座...")
-            self.driver.find_by_id('qr_submit_id').click()
+            # 选择用户
+            self.selUser()
+            # 确认订单
+            self.confirmOrder()
+            # 提交订单
+            self.submitOrder()
+            # 确认选座
+            #self.confirmSeat()
 
             print(time.clock() - t)
 
