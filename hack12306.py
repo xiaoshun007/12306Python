@@ -253,15 +253,8 @@ class hackTickets(object):
 
             print(u"提交订单...")
             sleep(1)
-            # self.driver.find_by_text(self.pz).click()
-            # self.driver.find_by_id('').select(self.pz)
-            # # sleep(1)
-            # self.driver.find_by_text(self.xb).click()
-            # sleep(1)
+
             self.driver.find_by_id('submitOrder_id').click()
-            # print u"开始选座..."
-            # self.driver.find_by_id('1D').last.click()
-            # self.driver.find_by_id('1F').last.click()
 
             # 若提交订单异常，请适当加大sleep的时间
             sleep(1)
