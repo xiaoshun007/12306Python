@@ -4,6 +4,8 @@
 
 hack12306.py is a automatic [12306.cn](http://www.12306.cn/mormhweb/) ticket booking program by Python 3.x . This program uses [splinter](https://splinter.readthedocs.io/en/latest/index.html) (python test framework for web applications) to operate the website automatically.
 
+## [Chinese version](https://github.com/xiaoshun007/12306Python/blob/master/README.md)
+
 ## gitee.com
 ### [hack12306](https://gitee.com/xiaoshun/12306Python)
 
