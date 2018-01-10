@@ -22,14 +22,17 @@ hack12306.py is a automatic [12306.cn](http://www.12306.cn/mormhweb/) ticket boo
 
 ## Features
 ```
-    hack12306.py is a automatic 12306.cn ticket booking program by Python 3.x. While you run it, what you need to do is wait for the browser page to jump out, enter the verification code, click the login button, then go have a cup of tea or coffee, the ticket you want will be in your pocket. Easy and hanppy!
+    hack12306.py is a automatic 12306.cn ticket booking program by Python 3.x. 
+While you run it, what you need to do is wait for the browser page to jump out, enter the verification code, click the login button,
+then go have a cup of tea or coffee, the ticket you want will be in your pocket. Easy and hanppy!
 
 Supported：
     1、support config departure city, destination city, start date
     2、support config train types(D, G etc.)
     3、support config departure time
     4、need to enter the verification code manually
-    5、support config train order(0 means the first matches from top to bottom; 2 means the second train on the list)
+    5、support config train order
+    		(0 means the first matches from top to bottom; 2 means the second train on the list)
     6、support auto search and confirm	
     7、support config file configurable
     8、support config seat type
