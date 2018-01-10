@@ -44,3 +44,8 @@ Not supported：
 ```
     passenger info should be added in advance for the program to use
 ```
+
+### 2、config（Config.ini）
+```
+
+```
