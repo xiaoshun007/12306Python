@@ -6,9 +6,6 @@ hack12306.py is a automatic [12306.cn](http://www.12306.cn/mormhweb/) ticket boo
 
 ## [Chinese version](https://github.com/xiaoshun007/12306Python/blob/master/README.md)
 
-## gitee.com
-### [hack12306](https://gitee.com/xiaoshun/12306Python)
-
 ## Description
 ```
     |-- README.md：Description
