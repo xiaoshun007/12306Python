@@ -281,7 +281,7 @@ class hackTickets(object):
             # 提交订单
             self.submitOrder()
             # 确认选座
-            #self.confirmSeat()
+            self.confirmSeat()
 
             print(time.clock() - t)
 
