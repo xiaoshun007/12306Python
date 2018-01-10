@@ -9,10 +9,13 @@ hack12306.py 是一个 Python 3.x 版的[12306.cn](http://www.12306.cn/mormhweb/
 
 ## 说明
 ```
-config.ini：登录名、密码等的配置文件
-hack12306.py：主程序
-city_code.txt：城市中文名称与三字码对应文件
-resoures：存放的一些资源信息
+    |-- README.md：说明
+    |-- config.ini：登录名、密码等的配置文件
+    |-- hack12306.py：主程序
+    |-- city_code.txt：城市中文名称与三字码对应文件
+    |-- resoures：存放的一些资源信息
+            |-- images
+                    |-- 流程图.jpg
 ```
 
 ## 设计
