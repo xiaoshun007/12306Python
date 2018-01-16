@@ -254,7 +254,7 @@ class hackTickets(object):
         # 若提交订单异常，请适当加大sleep的时间
         sleep(1)
         print(u"确认选座...")
-        if driver_find_text(u"硬座余票<strong>0</strong>张") != None:
+        if self.driver.find_by_text(u"硬座余票<strong>0</strong>张") != None:
             self.driver.find_by_id('qr_submit_id').click()
         else:
             if self.noseat_allow == 0:
