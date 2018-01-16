@@ -28,7 +28,7 @@ import time
 
 class hackTickets(object):
     """docstring for hackTickets"""
-	
+
     """读取配置文件"""
     def readConfig(self, config_file='config.ini'):
         print("加载配置文件...")
@@ -75,6 +75,10 @@ class hackTickets(object):
         # 席别
         seat_type = cp.get("confirmInfo", "seat_type")
         self.seatType = self.seatMap[seat_type] if seat_type in self.seatMap else ""
+
+        # 是否允许分配无座
+        noseat_allow = cp.get("confirmInfo", "noseat_allow")
+        self.noseat_allow = 1 if int(noseat_allow) != 0 else 0
 
         # 浏览器名称：目前使用的是chrome
         self.driver_name = cp.get("pathInfo", "driver_name")
@@ -155,8 +159,8 @@ class hackTickets(object):
                 sleep(1)
             else:
                 break
-    
-    """更多查询条件"""            
+
+    """更多查询条件"""
     def searchMore(self):
         # 选择车次类型
         for type in self.train_types:
@@ -172,14 +176,14 @@ class hackTickets(object):
                 self.driver.find_by_text(train_type_dict[type]).click()
             else:
                 print(u"车次类型异常或未选择!(train_type=%s)" % type)
-		
+
         # 选择发车时间
         print(u'--------->选择的发车时间', self.start_time)
         if self.start_time:
             self.driver.find_option_by_text(self.start_time).first.click()
         else:
             print(u"未指定发车时间，默认00:00-24:00")
-	
+
     """填充查询条件"""
     def preStart(self):
         # 加载查询信息
@@ -199,7 +203,7 @@ class hackTickets(object):
             self.driver.find_by_text(u"查询").click()
             count += 1
             print(u"循环点击查询... 第 %s 次" % count)
-            
+
             try:
                 self.driver.find_by_text(u"预订")[self.order - 1].click()
                 sleep(0.3)
@@ -207,7 +211,7 @@ class hackTickets(object):
                 print(e)
                 print(u"还没开始预订")
                 continue
-    
+
     def buyOrderZero(self):
         count=0
         while self.driver.url == self.ticket_url:
@@ -217,7 +221,7 @@ class hackTickets(object):
             self.driver.find_by_text(u"查询").click()
             count += 1
             print(u"循环点击查询... 第 %s 次" % count)
-            
+
             try:
                 for i in self.driver.find_by_text(u"预订"):
                     i.click()
@@ -228,39 +232,44 @@ class hackTickets(object):
                 print(e)
                 print(u"还没开始预订 %s" %count)
                 continue
-    
+
     def selUser(self):
         print(u'开始选择用户...')
         for user in self.users:
             self.driver.find_by_text(user).last.click()
-    
+
     def confirmOrder(self):
         print(u"选择席别...")
         if self.seatType:
             self.driver.find_by_value(self.seatType).click()
         else:
             print(u"未指定席别，按照12306默认席别")
-    
+
     def submitOrder(self):
         print(u"提交订单...")
         sleep(1)
-
         self.driver.find_by_id('submitOrder_id').click()
-    
+
     def confirmSeat(self):
         # 若提交订单异常，请适当加大sleep的时间
         sleep(1)
         print(u"确认选座...")
-        self.driver.find_by_id('qr_submit_id').click()
-            
+        if self.driver.find_by_text(u"硬座余票<strong>0</strong>张") != None:
+            self.driver.find_by_id('qr_submit_id').click()
+        else:
+            if self.noseat_allow == 0:
+                self.driver.find_by_id('back_edit_id').click()
+            elif self.noseat_allow == 1:
+                self.driver.find_by_id('qr_submit_id').click()
+
     def buyTickets(self):
         t = time.clock()
         try:
             print(u"购票页面开始...")
-            
+
             # 填充查询条件
             self.preStart()
-            
+
             # 带着查询条件，重新加载页面
             self.driver.reload()
 
@@ -272,7 +281,7 @@ class hackTickets(object):
                 # 默认选票
                 self.buyOrderZero()
             print(u"开始预订...")
-            
+
             sleep(0.8)
             # 选择用户
             self.selUser()
